@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 
-import 'package:newui/src/presentation/widgets/main_screen_button.dart';
+import 'package:newui/src/presentation/widgets/main_screen_buttons.dart';
 
 class MainScreen extends StatefulWidget {
+  const MainScreen({super.key});
+
   @override
   _MainScreenState createState() => _MainScreenState();
 }
 
 class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-  List<Particle> _particles = []; // Initialize as an empty list
+  List<Particle> _particles = [];
   late Size screenSize;
   bool isInitialized = false;
 
@@ -19,7 +21,7 @@ class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateM
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 5),
+      duration: const Duration(seconds: 5),
     )..repeat();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -39,10 +41,10 @@ class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateM
         random.nextDouble() * screenSize.height,
       ),
       velocity: Offset(
-        (random.nextDouble() - 0.5) * 2, // Random speed between -1 and 1
+        (random.nextDouble() - 0.5) * 2,
         (random.nextDouble() - 0.5) * 2,
       ),
-      size: random.nextDouble() * 2 + 0, // Random size between 2 and 5
+      size: random.nextDouble() * 2 + 0,
     ));
   }
 
@@ -50,7 +52,7 @@ class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateM
   Widget build(BuildContext context) {
     if (!isInitialized) {
       return const Scaffold(
-        body: Center(child: CircularProgressIndicator()), // Show loading indicator
+        body: Center(child: CircularProgressIndicator()),
       );
     }
 
@@ -66,12 +68,12 @@ class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateM
               );
             },
           ),
-          Positioned(
-            top: 40, // Adjust this value to your liking
+          const Positioned(
+            top: 40,
             left: 20,
             right: 20,
             child: Text(
-              '@g.adam.llery', // Replace with the actual photographer's name
+              '@g.adam.llery',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 36,
@@ -119,7 +121,6 @@ class BackgroundPainter extends CustomPainter {
     final particlePaint = Paint()..color = Colors.white.withOpacity(0.3);
 
     for (var particle in particles) {
-      // Move each particle independently
       particle.position = Offset(
         (particle.position.dx + particle.velocity.dx) % screenSize.width,
         (particle.position.dy + particle.velocity.dy) % screenSize.height,
@@ -128,7 +129,7 @@ class BackgroundPainter extends CustomPainter {
       canvas.drawCircle(particle.position, particle.size, particlePaint);
     }
 
-    // Add Lens Flare Effect (Gradient Circle)
+    // Add Lens Flare Effect
     final flarePaint = Paint()
       ..shader = RadialGradient(
         colors: [Colors.orangeAccent.withOpacity(0.1), Colors.transparent],

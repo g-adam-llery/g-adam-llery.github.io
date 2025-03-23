@@ -7,13 +7,13 @@ class g_adam_llery_website extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: '@g.adam.llery',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
         fontFamily: 'Montserrat',
       ),
-      home: MainScreen(),
+      home: const MainScreen(),
     );
   }
 }
